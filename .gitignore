@@ -1,0 +1,7 @@
+*.code-workspace
+.vscode
+
+bin/
+obj/
+samples/
+tmp/
