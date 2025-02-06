@@ -10,7 +10,8 @@ int main() {
 		reset_ports();
 		fetch_ports(&port_info);
 		Move move = select_move(&port_info);
-		dispatch_move(move, tick);
+		unsigned char motor_state = generate_motor_state(move, tick);
+		dispatch_motor_state(motor_state);
 	}
 
 	return 0;
