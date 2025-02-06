@@ -4,7 +4,7 @@
 #include "types.h"
 #include <xc.h>
 
-#include <pic18f25k50.h>
+// #include <pic18f25k50.h>
 
 void init_ports() {
 	// setting digital ports
@@ -27,9 +27,10 @@ void reset_ports() {
 }
 
 void fetch_ports(PortInfo_t *port_info) {
-	port_info->line_sensors = PORTBbits.RB0 | (PORTBbits.RB1 << 1) |
-	                          (PORTBbits.RB2 << 2) | (PORTBbits.RB3 << 3) |
-	                          (PORTBbits.RB4 << 4);
+	port_info->line_sensors =
+	    (unsigned char)((PORTBbits.RB0) | (PORTBbits.RB1 << 1) |
+	                    (PORTBbits.RB2 << 2) | (PORTBbits.RB3 << 3) |
+	                    (PORTBbits.RB4 << 4));
 }
 
 void dispatch_motor_state(unsigned char motor_state) { LATC = motor_state; }
