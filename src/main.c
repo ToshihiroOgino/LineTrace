@@ -6,7 +6,7 @@ int main() {
 	init_ports();
 	PortInfo_t port_info;
 
-	for (LoopTick tick = 0;; count_up(&tick)) {
+	for (LoopTick tick = 0;; countup(&tick)) {
 		reset_ports();
 		fetch_ports(&port_info);
 		Move move = select_move(&port_info);
