@@ -4,7 +4,7 @@
 // MAX_LOOP_TICK: 31
 #define MAX_LOOP_TICK ((1 << 5) - 1)
 typedef unsigned int LoopTick;
-void count_up(LoopTick *tick);
+void countup(LoopTick *tick);
 
 typedef struct {
 	/** line sensor values(5bit)
