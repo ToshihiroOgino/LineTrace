@@ -1,4 +1,4 @@
-CC = xc8-cc.exe
+CC = xc8-cc
 CFLAGS = -mcpu=18f2550 -std=c99
 
 SRCDIR = ../src
