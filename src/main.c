@@ -1,20 +1,17 @@
-#include "register_util.h"
 #include "linetrace.h"
-
-#define LOOP_TICK_MAX 31
+#include "register_util.h"
+#include "types.h"
 
 int main() {
 	init_ports();
 	PortInfo_t port_info;
 
-	int loop_tick = 0;
-	for (loop_tick = 0;; loop_tick = (loop_tick + 1) & LOOP_TICK_MAX) {
+	for (LoopTick tick = 0;; count_up(&tick)) {
 		reset_ports();
 		fetch_ports(&port_info);
-		select_move(&port_info);
-		break;
+		Move move = select_move(&port_info);
+		dispatch_move(move, tick);
 	}
-
 
 	return 0;
 }

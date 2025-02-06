@@ -11,4 +11,8 @@ void fetch_ports(PortInfo_t *port_info) {
 	port_info->line_sensors = ~(1 << 2);
 }
 
+void dispatch_move(Move move, LoopTick tick) {
+	fprintf(stderr, "dispatch_move\n");
+}
+
 #endif
