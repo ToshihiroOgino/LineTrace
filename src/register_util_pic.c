@@ -33,6 +33,8 @@ void fetch_ports(PortInfo_t *port_info) {
 	                    (PORTBbits.RB4 << 4));
 }
 
-void dispatch_motor_state(unsigned char motor_state) { LATC = motor_state; }
+void dispatch_motor_state(unsigned char motor_state) {
+	LATC |= (motor_state & 0b11);
+}
 
 #endif
