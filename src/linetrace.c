@@ -1,17 +1,42 @@
 #include "linetrace.h"
 
-Move select_move(const PortInfo_t *port_info) {
-	unsigned int line = port_info->line_sensors;
+int num_inverted = 0;
+int sensor_bit_count_log[MAX_LOOP_TICK];
 
-#if LINE == 0
-	line = ~line & 0b11111;
-#endif
+/**
+ * @brief Count the bits of the sensor data to see if the majority is 1 or 0
+ *
+ * @param n sensor data
+ * @return 1 if the sensor data is inverted, 0 otherwise
+ */
+int _is_inverted(int bit_count) { return bit_count > (LINE_SENSOR_BITS / 2); }
+
+void _store_sensor_log(unsigned int line_sensors, LoopTick tick) {
+	// Remove the previous loop tick's data from the count
+	num_inverted -= _is_inverted(sensor_bit_count_log[tick]);
+
+	int bit_count = 0;
+	for (int i = 0; i < LINE_SENSOR_BITS; i++) {
+		bit_count += ((line_sensors & (1 << i)) != 0);
+	}
+	sensor_bit_count_log[tick] = bit_count;
+	num_inverted += _is_inverted(sensor_bit_count_log[tick]);
+}
+
+Move select_move(const PortInfo_t *port_info, LoopTick tick) {
+	unsigned int line = port_info->line_sensors;
+	_store_sensor_log(line, tick);
+
+	if (num_inverted > (MAX_LOOP_TICK / 2)) {
+		// When the sensor data is inverted for more than a majority of ticks,
+		// treat 0 of the sensor data as a line detected.
+		line = ~line & 0b11111;
+	}
 
 	Move move = MOVE_STOP;
 
-	if (line == 0b11111) {
-		move = MOVE_STOP;
-	} else if (line == 0b00100 || line == 0b01110) {
+	if (line == 0b00100 || line == 0b01110 || line == 0b10001 ||
+	    line == 0b11011 || line == 0b00000 || line == 0b11111) {
 		move = MOVE_STRAIGHT;
 	} else if ((line & 0b00001) != 0) {
 		move = MOVE_RIGHT;
