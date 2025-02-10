@@ -33,12 +33,8 @@ Move select_move(const PortInfo_t *port_info, LoopTick tick) {
 		line = ~line & 0b11111;
 	}
 
-	Move move = MOVE_STOP;
-
-	if (line == 0b00100 || line == 0b01110 || line == 0b10001 ||
-	    line == 0b11011 || line == 0b00000 || line == 0b11111) {
-		move = MOVE_STRAIGHT;
-	} else if ((line & 0b00001) != 0) {
+	Move move = MOVE_STRAIGHT;
+	if ((line & 0b00001) != 0) {
 		move = MOVE_RIGHT;
 	} else if (line == 0b00110 || line == 0b00010) {
 		move = MOVE_SMALL_RIGHT;
