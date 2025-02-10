@@ -1,5 +1,5 @@
-#ifndef EMULATE_H_
-#define EMULATE_H_
+#ifndef REGISTER_UTIL_H_
+#define REGISTER_UTIL_H_
 
 #include "linetrace.h"
 #include "types.h"
@@ -9,4 +9,4 @@ void reset_ports(void);
 void fetch_ports(PortInfo_t *port_info);
 void dispatch_motor_state(unsigned char motor_state);
 
-#endif /* EMULATE_H_ */
+#endif /* REGISTER_UTIL_H_ */
