@@ -6,8 +6,6 @@
 
 #include <pic18f2550.h>
 
-// #include <pic18f25k50.h>
-
 void init_ports() {
 	// setting digital ports
 	ADCON1 = 0x0F;
