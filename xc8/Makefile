@@ -8,7 +8,7 @@ BINDIR = ./bin
 $(shell mkdir -p $(OBJDIR))
 $(shell mkdir -p $(BINDIR))
 
-TARGET = $(BINDIR)/emulate
+TARGET = $(BINDIR)/linetrace
 
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.p1)))
