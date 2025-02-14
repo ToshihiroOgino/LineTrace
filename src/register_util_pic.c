@@ -4,6 +4,8 @@
 #include "types.h"
 #include <xc.h>
 
+#include <pic18f2550.h>
+
 // #include <pic18f25k50.h>
 
 void init_ports() {
@@ -34,7 +36,7 @@ void fetch_ports(PortInfo_t *port_info) {
 }
 
 void dispatch_motor_state(unsigned char motor_state) {
-	LATC |= (motor_state & 0b11);
+	LATC = (unsigned char)((LATC & ~0b11) | (motor_state & 0b11));
 }
 
 #endif
