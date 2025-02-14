@@ -16,7 +16,6 @@ int main() {
 		Move move = select_move(&port_info, tick);
 		unsigned char motor_state = generate_motor_state(move, tick);
 		dispatch_motor_state(motor_state);
-		break;
 	}
 
 	return 0;
