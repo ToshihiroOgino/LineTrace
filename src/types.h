@@ -23,10 +23,13 @@ typedef struct {
 typedef enum {
 	MOVE_STOP,
 	MOVE_STRAIGHT,
+	MOVE_SLOW_STRAIGHT,
 	MOVE_RIGHT,
 	MOVE_SMALL_RIGHT,
+	MOVE_BIG_RIGHT,
 	MOVE_LEFT,
 	MOVE_SMALL_LEFT,
+	MOVE_BIG_LEFT,
 } Move;
 
 #endif /* TYPES_H_ */
