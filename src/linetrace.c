@@ -43,7 +43,7 @@ Move select_move(const PortInfo_t *port_info, LoopTick tick) {
 		move = MOVE_STRAIGHT;
 		prev_side = SIDE_NONE;
 	} else if (line == 0b01110 || line == 0b10001) {
-		move = MOVE_SLOW_STRAIGHT;
+		move = MOVE_STRAIGHT_SLOW;
 		prev_side = SIDE_NONE;
 	} else if (line == 0b00001 || line == 0b00011 || line == 0b00111) {
 		move = MOVE_RIGHT;
@@ -55,15 +55,15 @@ Move select_move(const PortInfo_t *port_info, LoopTick tick) {
 		move = MOVE_LEFT;
 		prev_side = SIDE_LEFT;
 	} else if (line == 0b01100 || line == 0b01000) {
-		move = MOVE_SMALL_LEFT;
+		move = MOVE_LEFT_SMALL;
 		prev_side = SIDE_LEFT;
 	} else if (line == 0b00000 || line == 0b11111) {
 		// In case of no line detected, keep the previous side
 		if (prev_side == SIDE_LEFT) {
-			move = MOVE_BIG_LEFT;
+			move = MOVE_LEFT_BIG;
 			prev_side = SIDE_LEFT;
 		} else if (prev_side == SIDE_RIGHT) {
-			move = MOVE_BIG_RIGHT;
+			move = MOVE_RIGHT_BIG;
 			prev_side = SIDE_RIGHT;
 		} else {
 			move = MOVE_STRAIGHT;
@@ -92,13 +92,13 @@ unsigned char generate_motor_state(Move move, LoopTick tick) {
 	switch (move) {
 	case MOVE_RIGHT:
 	case MOVE_SMALL_RIGHT:
-	case MOVE_BIG_RIGHT:
+	case MOVE_RIGHT_BIG:
 		motor = MOTOR_RIGHT_ON;
 		break;
 
 	case MOVE_LEFT:
-	case MOVE_SMALL_LEFT:
-	case MOVE_BIG_LEFT:
+	case MOVE_LEFT_SMALL:
+	case MOVE_LEFT_BIG:
 		motor = MOTOR_LEFT_ON;
 		break;
 
@@ -116,7 +116,7 @@ unsigned char generate_motor_state(Move move, LoopTick tick) {
 		return motor;
 	}
 
-	if (move == MOVE_SMALL_LEFT || move == MOVE_SMALL_RIGHT) {
+	if (move == MOVE_LEFT_SMALL || move == MOVE_SMALL_RIGHT) {
 		if (tick > small_turn_tick) {
 			motor = MOTOR_OFF;
 		}
@@ -124,7 +124,7 @@ unsigned char generate_motor_state(Move move, LoopTick tick) {
 		if (tick > turn_tick) {
 			motor = MOTOR_OFF;
 		}
-	} else if (move == MOVE_BIG_LEFT || move == MOVE_BIG_RIGHT) {
+	} else if (move == MOVE_LEFT_BIG || move == MOVE_RIGHT_BIG) {
 		if (tick > big_turn_tick) {
 			motor = MOTOR_OFF;
 		}
