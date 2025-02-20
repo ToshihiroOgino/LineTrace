@@ -79,10 +79,10 @@ Move select_move(const PortInfo_t *port_info, LoopTick tick) {
 #define MOTOR_BOTH_ON 0b11
 
 // If the tick is exceeds these values, stop the motors
-const int straight_tick = 8;
-const int straight_slow_tick = 5;
+const int straight_tick = 18;
+const int straight_slow_tick = 12;
 
-const int turn_tick = 12;
+const int turn_tick = 10;
 const int small_turn_tick = 8;
 const int big_turn_tick = 15;
 
